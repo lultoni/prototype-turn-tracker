@@ -4,12 +4,11 @@ const $ = sel => document.querySelector(sel);
 const defaultState = {
   round: 1,
   currentPlayer: 1, // 1 or 2
-  p1: { runes: 0, guards: 0, champs: 0 },
-  p2: { runes: 0, guards: 0, champs: 0 },
+  p1: { runes: 5, guards: 6, champs: 5 },
+  p2: { runes: 5, guards: 6, champs: 5 },
   roundsSinceCapture: 0,
   captureThisRound: false,
-  notes: "",
-  ui: { moveUsed: 0, skillUsed: 0 }
+  notes: ""
 };
 
 const LS_KEY = "turn-tracker-v1";
@@ -50,38 +49,6 @@ function render(){
 
   const slotsNow = skillSlotsForRound(state.round);
   $('#skillSlotsNow').textContent = slotsNow;
-
-  // Movement slots (always 2 per turn)
-  const moveWrap = $('#moveSlots');
-  moveWrap.innerHTML = '';
-  for(let i=0;i<2;i++){
-    const el = document.createElement('label');
-    el.className = 'slot';
-    const cb = document.createElement('input');
-    cb.type = 'checkbox';
-    cb.checked = i < state.ui.moveUsed;
-    cb.addEventListener('change', ()=>{
-      if(cb.checked){ state.ui.moveUsed = Math.min(2, state.ui.moveUsed+1);} else { state.ui.moveUsed = Math.max(0, state.ui.moveUsed-1);} saveState(); render();
-    });
-    el.append(cb); el.append(document.createTextNode('Move'));
-    moveWrap.append(el);
-  }
-
-  // Skill slots (scaling)
-  const skillWrap = $('#skillSlots');
-  skillWrap.innerHTML = '';
-  for(let i=0;i<slotsNow;i++){
-    const el = document.createElement('label');
-    el.className = 'slot';
-    const cb = document.createElement('input');
-    cb.type = 'checkbox';
-    cb.checked = i < state.ui.skillUsed;
-    cb.addEventListener('change', ()=>{
-      if(cb.checked){ state.ui.skillUsed = Math.min(slotsNow, state.ui.skillUsed+1);} else { state.ui.skillUsed = Math.max(0, state.ui.skillUsed-1);} saveState(); render();
-    });
-    el.append(cb); el.append(document.createTextNode('Skill'));
-    skillWrap.append(el);
-  }
 
   // Capture toggle button label
   const capBtn = $('#toggleCapture');
@@ -154,9 +121,6 @@ $('#endTurn').addEventListener('click', ()=>{
 
     state.round += 1;
   }
-  // Reset slots each new turn
-  state.ui.moveUsed = 0;
-  state.ui.skillUsed = 0;
   saveState(); render();
 });
 
