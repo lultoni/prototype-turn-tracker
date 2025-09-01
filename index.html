@@ -22,7 +22,6 @@
         <div class="divider"></div>
 
         <h2>Turn Structure</h2>
-        <div class="row"><span class="pill">A Round = P1 Turn ➜ P2 Turn</span><span class="pill">A Turn = Movement Phase ➜ Action Phase</span></div>
 
         <div style="margin-top:10px" class="btn-row">
             <button id="endTurn">End Turn ▶</button>
@@ -35,15 +34,38 @@
 
         <div class="divider"></div>
 
-        <h2>Skill Use</h2>
+
+        <h2>Rune Counter</h2>
+        <div class="row">
+            <div class="stat"><strong>P1:</strong> <span id="p1Runes" class="val">0</span>
+                <div class="counter">
+                    <button class="secondary" data-rune-delta="-1" data-player="1">−</button>
+                    <button class="secondary" data-rune-delta="+1" data-player="1">+</button>
+                </div>
+            </div>
+            <div class="stat"><strong>P2:</strong> <span id="p2Runes" class="val">0</span>
+                <div class="counter">
+                    <button class="secondary" data-rune-delta="-1" data-player="2">−</button>
+                    <button class="secondary" data-rune-delta="+1" data-player="2">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="tiny muted" style="margin-top:4px">Runes: Gain +1 at end of each round, scaling by +1 every 7 rounds (e.g., +2 at Round 7, +3 at Round 14, ...).</div>
+
+        <div class="divider"></div>
+
+        <h2>Skill Use Cost (Current Player)</h2>
         <div id="skillButtons" class="btn-row">
-            <button class="secondary" data-skill="1">Use Skill (1)</button>
-            <button class="secondary" data-skill="2">Use Skill (2)</button>
-            <button class="secondary" data-skill="3">Use Skill (3)</button>
-            <button class="secondary" data-skill="4">Use Skill (4)</button>
+            <button class="secondary" data-skill="1"> [ 1 ] </button>
+            <button class="secondary" data-skill="2"> [ 2 ] </button>
+            <button class="secondary" data-skill="3"> [ 3 ] </button>
+            <button class="secondary" data-skill="4"> [ 4 ] </button>
         </div>
 
         <div class="divider"></div>
+    </section>
+
+    <section class="card">
 
         <h2>Draw Conditions</h2>
         <ul class="tiny">
@@ -54,27 +76,6 @@
             <span id="dc1" class="pill">DC1: OK</span>
             <span id="dc2" class="pill">DC2: OK</span>
         </div>
-    </section>
-
-    <section class="card">
-        <h2>Players & Runes</h2>
-        <div class="row">
-            <div class="stat"><strong>P1 Runes</strong> <span id="p1Runes" class="val">0</span>
-                <div class="counter">
-                    <button class="secondary" data-rune-delta="-1" data-player="1">−</button>
-                    <button class="secondary" data-rune-delta="+1" data-player="1">+</button>
-                </div>
-            </div>
-            <div class="stat"><strong>P2 Runes</strong> <span id="p2Runes" class="val">0</span>
-                <div class="counter">
-                    <button class="secondary" data-rune-delta="-1" data-player="2">−</button>
-                    <button class="secondary" data-rune-delta="+1" data-player="2">+</button>
-                </div>
-            </div>
-        </div>
-        <div class="tiny muted" style="margin-top:4px">Runes: Gain +1 at end of each round, scaling by +1 every 7 rounds (e.g., +2 at Round 7, +3 at Round 14, ...).</div>
-
-        <div class="divider"></div>
 
         <h2>Piece Tracker</h2>
         <button type="button" class="collapsible">Show Details</button>
