@@ -27,11 +27,20 @@
         <div style="margin-top:10px" class="btn-row">
             <button id="endTurn">End Turn ▶</button>
             <button class="secondary" id="toggleCapture">No capture this round</button>
-            <button class="danger" id="resetGame">Reset Game</button>
         </div>
 
         <div class="row" style="margin-top:6px">
-            <span class="muted tiny">Tip: Toggle "No capture this round" only once per round. It will reset automatically next round.</span>
+            <span class="muted tiny">Tip: Toggle "No capture this round" only once per round. It resets automatically next round.</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2>Skill Use</h2>
+        <div id="skillButtons" class="btn-row">
+            <button class="secondary" data-skill="1">Use Skill (1)</button>
+            <button class="secondary" data-skill="2">Use Skill (2)</button>
+            <button class="secondary" data-skill="3">Use Skill (3)</button>
+            <button class="secondary" data-skill="4">Use Skill (4)</button>
         </div>
 
         <div class="divider"></div>
@@ -68,7 +77,8 @@
         <div class="divider"></div>
 
         <h2>Piece Tracker</h2>
-        <div class="grid cols-2">
+        <button type="button" class="collapsible">Show Details</button>
+        <div class="collapsible-content">
             <div>
                 <h3 class="muted">Player 1</h3>
                 <div class="row">
@@ -110,6 +120,10 @@
         <div class="divider"></div>
         <h2>Quick Notes</h2>
         <textarea id="notes" rows="6" style="width:100%;border-radius:12px;border:1px solid #2a357a;background:#0c1130;color:var(--text);padding:10px" placeholder="Optional: record key events, skills used, injuries/heals, bodyguard interceptions, etc."></textarea>
+
+        <div style="margin-top:10px" class="btn-row-2">
+            <button class="danger" id="resetGame">Reset Game</button>
+        </div>
 
         <div class="footer tiny">All data auto-saves to your device (localStorage). Clearing with <em>Reset Game</em> will wipe it.</div>
     </section>

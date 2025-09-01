@@ -11,7 +11,7 @@ const defaultState = {
   notes: ""
 };
 
-const LS_KEY = "turn-tracker-v1";
+const LS_KEY = "turn-tracker-v2";
 
 function loadState(){
   try{ const s = JSON.parse(localStorage.getItem(LS_KEY)); if(s) return s; }catch(e){}
@@ -28,7 +28,7 @@ function runeGainForRound(round){
 }
 function skillSlotsForRound(round){
   // Start 2; +1 every 10 rounds: 3 at 10..19, 4 at 20..29, ...
-  return 2 + Math.floor((round) / 10);
+  return 2 + Math.floor(round / 10);
 }
 
 // ---------- Rendering ----------
@@ -98,23 +98,49 @@ $('#toggleCapture').addEventListener('click', ()=>{
   state.captureThisRound = !state.captureThisRound; saveState(); render();
 });
 
+// Skill buttons
+document.querySelectorAll('[data-skill]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const cost = parseInt(btn.getAttribute('data-skill'));
+    const player = state.currentPlayer === 1 ? state.p1 : state.p2;
+    if(player.runes >= cost){
+      player.runes -= cost;
+      saveState(); render();
+    } else {
+      alert(`Not enough runes! Need ${cost}, but have ${player.runes}.`);
+    }
+  });
+});
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+
 // End Turn logic
 $('#endTurn').addEventListener('click', ()=>{
-  // next player or next round
   if(state.currentPlayer === 1){
     state.currentPlayer = 2;
   } else {
     state.currentPlayer = 1;
     // Round advances
-    // Capture tracking for DC1
     if(state.captureThisRound){
       state.roundsSinceCapture = 0;
     } else {
       state.roundsSinceCapture += 1;
     }
-    state.captureThisRound = false; // reset toggle for next round
+    state.captureThisRound = false; // reset toggle
 
-    // Rune gain for BOTH players
     const gain = runeGainForRound(state.round);
     state.p1.runes += gain;
     state.p2.runes += gain;
